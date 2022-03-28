@@ -31,6 +31,10 @@ app.get("/search", (req, res) => {
   res.render("index", { restaurants: searchRes, keyword: keyword });
 });
 
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
 app.listen(port, () => {
   console.log(`Second practice Express on http://localhost${port}`);
 });
