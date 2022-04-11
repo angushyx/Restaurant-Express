@@ -58,19 +58,6 @@ app.get("/restaurants/:id", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// app.post("/restaurants", (req, res) => {});
-
-app.get("/search", (req, res) => {
-  const keyword = req.query.keyword;
-  const searchRes = restaurantList.results.filter(
-    (searchRes) =>
-      searchRes.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      searchRes.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
-      searchRes.category.toLowerCase().includes(keyword.toLowerCase())
-  );
-  res.render("index", { restaurants: searchRes, keyword: keyword });
-});
-
 // Read: show detail info of target restaurant
 app.get("/restaurants/:id", (req, res) => {
   const id = req.params.id;
@@ -97,10 +84,29 @@ app.post("/restaurants/:id/new", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+// Delete: Delete restaurant
+app.post("/restaurants/:id/delete", (req, res) => {
+  const id = req.params.id;
+  return Restaurant.findById(id)
+    .then((restaurant) => restaurant.remove())
+    .then(() => res.redirect("/"))
+    .catch((err) => console.log(err));
+});
+
 // Read: show login page
 app.get("/login", (req, res) => {
   res.render("login");
 });
+// app.get("/search", (req, res) => {
+//   const keyword = req.query.keyword;
+//   const searchRes = restaurantList.results.filter(
+//     (searchRes) =>
+//       searchRes.name.toLowerCase().includes(keyword.toLowerCase()) ||
+//       searchRes.name_en.toLowerCase().includes(keyword.toLowerCase()) ||
+//       searchRes.category.toLowerCase().includes(keyword.toLowerCase())
+//   );
+//   res.render("index", { restaurants: searchRes, keyword: keyword });
+// });
 
 app.listen(port, () => {
   console.log(`Second practice Express on http://localhost${port}`);
