@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
-const restaurantList = require("./restaurant.json");
+const Restaurant = require("./models/restaurant");
 
 //建立資料庫連線
 mongoose.connect(process.env.MONGODB_URI);
@@ -23,7 +23,10 @@ app.use(express.static("public"));
 app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
-  res.render("index", { restaurants: restaurantList.results });
+  Restaurant.find()
+    .lean()
+    .then((restaurantList) => res.render("index", { restaurantList }))
+    .catch((err) => console.log(err));
 });
 
 app.get("/restaurants/:id", (req, res) => {
