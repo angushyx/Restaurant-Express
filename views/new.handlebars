@@ -5,7 +5,7 @@
       {{#if restaurant}}
       <h3>Edit Infos of Restaurant</h3>
       <hr>
-      <form method="POST" action="/restaurants/{{restaurant._id}}/edit">
+      <form method="POST" action="/restaurants/{{restaurant._id}}/new">
         {{else}}
         <h3>Add New Restaurant</h3>
         <hr>
@@ -69,7 +69,7 @@
             </label>
             <div class="col-md-9">
               <input type="tel" name="phone" placeholder="01-2345-6789" class="form-control" id="phone"
-                pattern="[\d\-]{1,}" {{#if restaurant}} value="{{restaurant.phone}}" {{/if}} required>
+                 {{#if restaurant}} value="{{restaurant.phone}}" {{/if}} >
             </div>
           </div>
 

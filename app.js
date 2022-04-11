@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const Restaurant = require("./models/restaurant");
 const bodyParser = require("body-parser");
+const { render } = require("express/lib/response");
 //建立資料庫連線
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -70,6 +71,33 @@ app.get("/search", (req, res) => {
   res.render("index", { restaurants: searchRes, keyword: keyword });
 });
 
+// Read: show detail info of target restaurant
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("show", restaurant))
+    .catch((err) => console.log(err));
+});
+
+// Read: Show edit page
+app.get("/restaurants/:id/new", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("new", { restaurant }))
+    .catch((error) => console.log(error));
+});
+
+// Update: renew data from edit page
+app.post("/restaurants/:id/new", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch((error) => console.log(error));
+});
+
+// Read: show login page
 app.get("/login", (req, res) => {
   res.render("login");
 });
