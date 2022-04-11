@@ -1,9 +1,22 @@
 const express = require("express");
-const app = express();
-const port = 3000;
-
+const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const restaurantList = require("./restaurant.json");
+
+//建立資料庫連線
+mongoose.connect(process.env.MONGODB_URI);
+const port = 3000;
+const app = express();
+
+//取得資料庫連線狀態
+const db = mongoose.connection;
+
+db.on("error", () => {
+  console.log("mongodb error");
+});
+db.once("open", () => {
+  console.log("mongodb connected!");
+});
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
 app.use(express.static("public"));
