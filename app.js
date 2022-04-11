@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const Restaurant = require("./models/restaurant");
-
 //建立資料庫連線
 mongoose.connect(process.env.MONGODB_URI);
+
 const port = 3000;
 const app = express();
 
@@ -18,10 +18,22 @@ db.once("open", () => {
   console.log("mongodb connected!");
 });
 
+// Set express engine
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" }));
-app.use(express.static("public"));
 app.set("view engine", "handlebars");
 
+// MiddleWares
+app.use(express.static("public"));
+
+//設定路由
+//Create: add new restaurant info
+app.post("/restaurants", (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch((error) => console.log(error));
+});
+
+//Read: Display all restaurants
 app.get("/", (req, res) => {
   Restaurant.find()
     .lean()
@@ -29,11 +41,13 @@ app.get("/", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+// Read: show detail info of target restaurant
 app.get("/restaurants/:id", (req, res) => {
-  const targetRestaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id === Number(req.params.id)
-  );
-  res.render("show", { restaurant: targetRestaurant });
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("show", restaurant))
+    .catch((err) => console.log(err));
 });
 
 app.get("/search", (req, res) => {
