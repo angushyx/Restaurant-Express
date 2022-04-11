@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const Restaurant = require("./models/restaurant");
+const bodyParser = require("body-parser");
 //建立資料庫連線
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -24,6 +25,15 @@ app.set("view engine", "handlebars");
 
 // MiddleWares
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Read: Display all restaurants
+app.get("/", (req, res) => {
+  Restaurant.find()
+    .lean()
+    .then((restaurantList) => res.render("index", { restaurantList }))
+    .catch((err) => console.log(err));
+});
 
 //設定路由
 //Create: add new restaurant info
@@ -33,12 +43,9 @@ app.post("/restaurants", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-//Read: Display all restaurants
-app.get("/", (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then((restaurantList) => res.render("index", { restaurantList }))
-    .catch((err) => console.log(err));
+// Read:Show add page of new restaurant
+app.get("/restaurants/new", (req, res) => {
+  return res.render("new", { layout: "main" });
 });
 
 // Read: show detail info of target restaurant
@@ -49,6 +56,8 @@ app.get("/restaurants/:id", (req, res) => {
     .then((restaurant) => res.render("show", restaurant))
     .catch((err) => console.log(err));
 });
+
+// app.post("/restaurants", (req, res) => {});
 
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword;
