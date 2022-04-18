@@ -9,5 +9,9 @@ router.get("/", (req, res) => {
     .then((restaurantList) => res.render("index", { restaurantList }))
     .catch((err) => console.log(err));
 });
+// Read: show login page
+router.get("/login", (req, res) => {
+  res.render("login");
+});
 
 module.exports = router;
