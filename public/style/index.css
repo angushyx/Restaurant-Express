@@ -17,8 +17,7 @@ header {
   height: 360px;
   background: #dddddd center center url("https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg");
   background-size: cover;
-  -webkit-filter: blur(3px);
-          filter: blur(3px);
+  filter: blur(3px);
 }
 
 .search-bar .search-bar-outer {
@@ -29,27 +28,11 @@ header {
   padding: 20px 30px;
   border: 0;
   margin-top: -60px;
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar .search-bar-inner h4 {
   color: #9b4b4b;
-}
-
-.form-control::-webkit-input-placeholder {
-  color: #aaaaaa;
-  font-size: 0.8rem;
-}
-
-.form-control:-ms-input-placeholder {
-  color: #aaaaaa;
-  font-size: 0.8rem;
-}
-
-.form-control::-ms-input-placeholder {
-  color: #aaaaaa;
-  font-size: 0.8rem;
 }
 
 .form-control::placeholder {
@@ -63,14 +46,12 @@ header {
 }
 
 .form-control:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-color: #ced4da;
 }
 
 .card {
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card img {

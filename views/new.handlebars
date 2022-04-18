@@ -1,6 +1,6 @@
 <div class="container info-form">
   <div class="row">
-    <div class="col-12  mx-auto">
+    <div class="col-12  mx-auto w-75 mt-5 ">
 
       {{#if restaurant}}
       <h3>Edit Infos of Restaurant</h3>
@@ -9,10 +9,10 @@
         {{else}}
         <h3>Add New Restaurant</h3>
         <hr>
+
+
         <form method="POST" action="/restaurants">
           {{/if}}
-
-
           <div class="row g-2 mb-4">
             <label for="name" class="col-md-3 col-form-label add-label">
               Name

@@ -3,18 +3,17 @@
 
 
 .screen__content {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 25rem;
+  width: 75%;
   margin: 3rem auto
 }
 
 .loginImage{
   position: relative;
-  width: 70rem;
+  width: 100%;
   border-radius: 1rem;
   opacity: .3;
   height: 30rem;
