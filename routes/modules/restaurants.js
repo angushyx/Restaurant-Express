@@ -1,9 +1,42 @@
 const router = require("express").Router();
 const Restaurant = require("../../models/restaurant");
+const Users = [
+  {
+    firstName: "Tony",
+    email: "tony@stark.com",
+    password: "iamironman",
+  },
+  {
+    firstName: "Angus",
+    email: "sickmi14798@gmail.com",
+    password: "1230",
+  },
+  {
+    firstName: "Steve",
+    email: "captain@hotmail.com",
+    password: "icandothisallday",
+  },
+  {
+    firstName: "Peter",
+    email: "peter@parker.com",
+    password: "enajyram",
+  },
+  {
+    firstName: "Natasha",
+    email: "natasha@gamil.com",
+    password: "*parol#@$!",
+  },
+  {
+    firstName: "Nick",
+    email: "nick@shield.com",
+    password: "password",
+  },
+];
 
 //設定路由
 //Create: add new restaurant info
 router.post("/", (req, res) => {
+  console.log(Restaurant);
   Restaurant.create(req.body)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
@@ -11,9 +44,12 @@ router.post("/", (req, res) => {
 
 // Read:Show add page of new restaurant
 router.get("/new", (req, res) => {
-  return res.render("new", { layout: "main" });
+  return res.render("new");
 });
-
+// Read: show login page
+router.get("/login", (req, res) => {
+  return res.render("login");
+});
 // Read: show detail info of target restaurant
 router.get("/:id", (req, res) => {
   const id = req.params.id;
@@ -70,4 +106,19 @@ router.get("/search", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+// logged
+
+router.post("/logged", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const isUser = Users.find((user) => {
+    return user.email === email && user.password === password;
+  });
+  if (isUser) {
+    res.render("welcomePage", { layout: "logged", user: isUser });
+  } else {
+    res.render("index", { layout: "main" });
+  }
+  //   .catch((err) => console.log(err));
+});
 module.exports = router;
