@@ -1,4 +1,4 @@
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 const express = require("express");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
@@ -17,6 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(routes);
 
-app.listen(port, () => {
-  console.log(`Second practice Express on http://localhost${port}`);
+app.listen(PORT, () => {
+  console.log(`Second practice Express on http://localhost${PORT}`);
 });
