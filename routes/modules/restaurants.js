@@ -33,10 +33,8 @@ const Users = [
   },
 ];
 
-//設定路由
 //Create: add new restaurant info
 router.post("/", (req, res) => {
-  console.log(Restaurant);
   Restaurant.create(req.body)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
@@ -80,34 +78,14 @@ router.post("/:id/new", (req, res) => {
 router.post("/:id/delete", (req, res) => {
   const id = req.params.id;
   return Restaurant.findById(id)
-    .then((restaurant) => restaurant.remove())
+    .then((restaurant) => {
+      restaurant.remove();
+    })
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });
 
-router.get("/search", (req, res) => {
-  if (!req.query.keyword) {
-    res.redirect("/");
-  }
-  const keywords = req.query.keyword;
-
-  Restaurant.find()
-    .lean()
-    .then((searchData) => {
-      const searchResults = searchData.filter((searchRes) => {
-        searchRes.name.toLowerCase().includes(keywords.toLowerCase()) ||
-          searchRes.name_en.toLowerCase().includes(keywords.toLowerCase()) ||
-          searchRes.category.toLowerCase().includes(keywords.toLowerCase());
-        console.log(searchRes.name);
-      });
-      console.log(searchResults);
-      res.render("index", { restaurants: searchResults, keyword: keywords });
-    })
-    .catch((error) => console.log(error));
-});
-
-// logged
-
+// logged:login
 router.post("/logged", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -117,8 +95,7 @@ router.post("/logged", (req, res) => {
   if (isUser) {
     res.render("welcomePage", { layout: "logged", user: isUser });
   } else {
-    res.render("index", { layout: "main" });
+    res.send("帳號米碼錯誤");
   }
-  //   .catch((err) => console.log(err));
 });
 module.exports = router;
