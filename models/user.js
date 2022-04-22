@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 // Set schema of restaurant
 const userSchema = new Schema({
-  originalURL: { type: String, required: true },
-  shortenURL: { type: String, required: false },
+  firstName: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 module.exports = mongoose.model("User", userSchema);

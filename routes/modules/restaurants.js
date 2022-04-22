@@ -1,37 +1,6 @@
 const router = require("express").Router();
 const Restaurant = require("../../models/restaurant");
-const Users = [
-  {
-    firstName: "Tony",
-    email: "tony@stark.com",
-    password: "iamironman",
-  },
-  {
-    firstName: "Angus",
-    email: "sickmi14798@gmail.com",
-    password: "1230",
-  },
-  {
-    firstName: "Steve",
-    email: "captain@hotmail.com",
-    password: "icandothisallday",
-  },
-  {
-    firstName: "Peter",
-    email: "peter@parker.com",
-    password: "enajyram",
-  },
-  {
-    firstName: "Natasha",
-    email: "natasha@gamil.com",
-    password: "*parol#@$!",
-  },
-  {
-    firstName: "Nick",
-    email: "nick@shield.com",
-    password: "password",
-  },
-];
+const Users = require("../../models/user");
 
 //Create: add new restaurant info
 router.post("/", (req, res) => {
@@ -89,13 +58,17 @@ router.post("/:id/delete", (req, res) => {
 router.post("/logged", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  const isUser = Users.find((user) => {
-    return user.email === email && user.password === password;
-  });
-  if (isUser) {
-    res.render("welcomePage", { layout: "logged", user: isUser });
-  } else {
-    res.send("帳號米碼錯誤");
-  }
+  Users.find()
+    .lean()
+    .then((userDate) => {
+      const isUser = userDate.find((user) => {
+        return user.email === email && user.password === password;
+      });
+      if (isUser) {
+        res.render("welcomePage", { layout: "logged", user: isUser });
+      } else {
+        res.send("帳號米碼錯誤");
+      }
+    });
 });
 module.exports = router;

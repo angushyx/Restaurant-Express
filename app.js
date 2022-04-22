@@ -18,6 +18,9 @@ app.set("view engine", "handlebars");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set("trust proxy", 1);
+
+app.use(session({ secret: "keyboard cat", cookie: { maxAge: 60000 } }));
 //todo cookie
 // app.use(
 //   session({

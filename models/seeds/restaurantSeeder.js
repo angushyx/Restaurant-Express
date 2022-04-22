@@ -11,7 +11,6 @@ db.once("open", () => {
   Restaurant.create(restaurantData)
     .then(() => {
       console.log("Done!");
-      db.close();
     })
     .catch((error) => console.log(error));
 });
