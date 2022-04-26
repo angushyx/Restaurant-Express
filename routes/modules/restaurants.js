@@ -54,21 +54,54 @@ router.post("/:id/delete", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// logged:login
+// logged:login function
+//表單送出後進入登入頁面
+
+//todo 想辦法把 sessionID 存進 session 裡面
+
 router.post("/logged", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  Users.find()
-    .lean()
-    .then((userDate) => {
-      const isUser = userDate.find((user) => {
-        return user.email === email && user.password === password;
-      });
-      if (isUser) {
-        res.render("welcomePage", { layout: "logged", user: isUser });
-      } else {
-        res.send("帳號米碼錯誤");
-      }
-    });
+  const { email, password } = req.body;
+  // const sessionID = req.cookies.session_id;
+  // console.log("Cookies: ", req.cookies);
+  // console.log(sessionID);
+  // console.log("Signed Cookies: ", req.signedCookies);
+  console.log(res.cookie());
+
+  // res.cookie("session_id", sessionID);
+  // Users.find()
+  //   .lean()
+  //   .then((userDate) => {
+  //     const isUser = userDate.find((user) => {
+  //       return user.email === email && user.password === password;
+  //     });
+  //     if (isUser) {
+  //       req.session.login = true;
+  //       isUser.sessionID = req.sessionID;
+  //       req.session.user = isUser.firstName;
+  return res.render("welcomePage");
+  //     } else {
+  // return res.redirect("/restaurants/login");
+  //     }
+  //   });
 });
+// router.post("/logged", (req, res) => {
+//   const { email, password } = req.body;
+//   Users.find()
+//     .lean()
+//     .then((userDate) => {
+//       const isUser = userDate.find((user) => {
+//         return user.email === email && user.password === password;
+//       });
+//       if (isUser) {
+//         req.session.login = true;
+//         isUser.sessionID = req.sessionID;
+//         console.log(isUser);
+//         console.log(req.session);
+//         req.session.user = isUser.firstName;
+//         return res.render("welcomePage", { user: isUser });
+//       } else {
+//         return res.redirect("/restaurants/login");
+//       }
+//     });
+// });
 module.exports = router;

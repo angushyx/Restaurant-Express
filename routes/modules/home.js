@@ -24,21 +24,7 @@ router.get("/search", (req, res) => {
     .lean()
     .sort(sort)
     .then((restaurantData) => {
-      const searchResults = restaurantData.filter((item) => {
-        const searchRange = (
-          item.name +
-          item.name_en +
-          item.category +
-          item.location
-        )
-          .toLowerCase()
-          .trim();
-        return keywords
-          .toLowerCase()
-          .trim()
-          .split(",")
-          .every((keyword) => searchRange.includes(keyword));
-      });
+      const searchResults = searchRes(restaurantData, keywords);
       res.render("index", { restaurantList: searchResults, keywords });
     })
     .catch((error) => {
