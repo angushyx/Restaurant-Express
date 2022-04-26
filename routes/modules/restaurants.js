@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const Restaurant = require("../../models/restaurant");
-const Users = require("../../models/user");
-const randomId = require("../../public/randomNum");
 
 //Create: add new restaurant info
 router.post("/", (req, res) => {
@@ -14,10 +12,7 @@ router.post("/", (req, res) => {
 router.get("/new", (req, res) => {
   return res.render("new");
 });
-// Read: show login page
-router.get("/login", (req, res) => {
-  return res.render("login");
-});
+
 // Read: show detail info of target restaurant
 router.get("/:id", (req, res) => {
   const id = req.params.id;
@@ -55,21 +50,4 @@ router.post("/:id/delete", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// logged:login function
-//表單送出後進入登入頁面
-
-//todo 想辦法把 sessionID 存進 session 裡面
-router.post("/logged", (req, res) => {
-  const { email, password } = req.body;
-  let sessionID = "";
-  Users.findOne({ email, password })
-    .lean()
-    .then((user) => {
-      if (user) {
-        sessionID = randomId(15);
-        res.cookie("session_id", sessionID);
-        return res.render("welcomePage", { layout: "logged", user });
-      }
-    });
-});
 module.exports = router;
