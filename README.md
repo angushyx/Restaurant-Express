@@ -13,6 +13,7 @@
 :star2: Add, edit, delete restaurants if needed.  
 :star2: Click to get google map of the restaurant.
 :star2: Support MongoDB to manage data.  
+:star2: Member authentication system by Usage Database.
 
 ### homePage
 - searching restaurants by name and category
@@ -45,6 +46,11 @@ npm install
 ```
 ### HOW TO USE
 
+:heavy_check_mark: Create a .env file for storing environment variables
+Copy the connection string from MongoDB Atlas and place it in .env file
+```bash
+MONGODB_URI=<your connection string>
+```
 :heavy_check_mark:  Run the following command after install finished.  
 ```bash
 # seeder for test data (8 seeds provided)
@@ -52,21 +58,24 @@ npm run seed
 
 # start the app
 # Be sure your current working directory is root, or it might cause .env loading error!
-npm run start
+npm run dev
 ```
 :heavy_check_mark:  Open browser to the URL if you see following message in console.  
 ```bash
-Listening on http://localhost:3000
+Practice Express on http://localhost3000
+mongodb connected!
 ```
 
 ### Now you can type in any browser http://localhost3000 to use this project
 
 ## Development tools
-- Node.js 10.15.0
-- Express 4.17.3
-- Express-Handlebars 3.0.0
-- Bootstrap v5.1.3
-- Font-awesome 6.0
-- body-parser 1.20.0
+- Node.js @ 10.15.0
+- Express @ 4.17.3
+- Express-Handlebars @ 3.0.0
+- Bootstrap @ v5.1.3
+- Font-awesome @ 6.0
+- body-parser @ 1.20.0
+- cookie-parser @ 1.4.6
+- mongoose @ 6.3.0
 
 [angushyx](https://github.com/angushyx)
